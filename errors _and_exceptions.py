@@ -2,10 +2,18 @@
 
 class TooHighValueError(Exception):
     pass
+
+
 class TooLowValueError(Exception):
     def __init__(self, message, x):
         self.message = message
         self.x= x
+
+
+class FunnyNumberError(Exception):
+    def __init(self, number, message):
+        self.number = number
+        self.message = message
 
 x:int = int(input("please give a number"))
 
@@ -25,9 +33,12 @@ finally:
 
 # Exception raising
 def test_func(x):
-    if x < 100:
+    if x > 100:
         raise TooHighValueError("The value of x is too high")
     assert(x>5), "The value is too low"
+
+    if x == 69:
+        raise FunnyNumberError(x, "The message is too funny")
     return None
 
 
