@@ -60,6 +60,10 @@ with open("test_csv.csv", "r") as read_file:
     for line in dict_obj:
         print(line)
 
+with open("new_csv.csv", "w") as new_file:
+    writer_obj = csv.Dictwriter()
+
+    
 
 
 
