@@ -46,9 +46,10 @@ with open("test_csv.csv", "a") as test_file:
     # reader = csv.reader(test_file)
     # print(tuple(reader))
     field_names: dict = {"name": "Poes", "grade": 9.9, "passed": True}
+    list_values: list = ["Poes", 9.9, True]
     keys_list: list = ["name", "grade", "passed"]
 
-    writer_obj = csv.DictWriter(test_file, fieldnames= keys_list)
+    writer_obj = csv.writer(test_file, fieldnames=keys_list)
 
     writer_obj.writerow(field_names)
 

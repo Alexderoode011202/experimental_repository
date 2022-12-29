@@ -15,7 +15,7 @@ class InvalidIndexValue(Exception):
         self.chosen_index = chosen_index
 
 
-def add_to_csv(dict_to_add: dict, csv_file: str, index: int = -1):
+def add_to_csv(dict_to_add: dict, csv_file: str, index: int = -1) -> None:
     """
     This functions allows you to add a line to a csv file in whatever place you want
     :param dict_to_add: is the line we want to add to the dictionary in dictionary form
@@ -65,7 +65,7 @@ def add_to_csv(dict_to_add: dict, csv_file: str, index: int = -1):
             # The first line always represents the keys(/row names of the file)
             file_content: list = []
             for line in reader:
-                if line == []:
+                if not line:
                     continue
                 file_content.append(line)
 
@@ -76,27 +76,27 @@ def add_to_csv(dict_to_add: dict, csv_file: str, index: int = -1):
 
         # If the chosen index is valid we will add the dictionary
         # to the right file at the correct index
-        not_added: bool = False
-        dict_line: dict = {}
+
+        # Here the file gets wiped in order to rewrite it
         with open(csv_file, "w") as file:
+            dict_writer = csv.DictWriter(file, fieldnames=list(file_content[0]))
+            list_writer = csv.writer(file)
             for line in file_content:
 
-                # Here we avoid the headers
+                # Here we re-add the header of the csv file
                 if file_content.index(line) == 0:
-                    next()
+                    list_writer.writerow(line)
 
                 # Here we add the dict_line variable we received as input
+                # The dict_to_add variables goes before the line at that current index
                 elif file_content.index(line) == index:
+                    list_writer.writerow(line)
+                    dict_writer.writerow(dict_to_add)
 
-
-                for var in line:
-                    dict_line
-
-
-
-
-
+                # And here the line just gets appended if it doesn't interfere with the chosen index
+                else:
+                    list_writer.writerow(line)
 
 
 path: str = "test_csv.csv"
-add_to_csv({"name": "Pootis", "grade": 8, "passed": True}, path, 3)
+add_to_csv({"name": "Pootis Mann", "grade": 65, "passed": True}, path, 2)
