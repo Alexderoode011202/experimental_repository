@@ -31,7 +31,7 @@ with open ("test_csv.csv", "r") as file:
     for line in reader:
         try:
             names_list.append(line[0])
-            grades_list.append(line[1])\
+            grades_list.append(line[1])
 
         except IndexError:
             continue
@@ -40,5 +40,19 @@ test_series = pd.Series(grades_list, index=names_list)
 
 print(test_series)
 """
+
+test_df = pd.read_csv("C:/Users/Alexd/OneDrive/Documenten/GitHub/experimental_repository/datasets/current.csv", encoding="utf-8")
+
+nl_thing: list = []
+for line in test_df["id"]:
+    if "nl" in line:
+        nl_thing.append(line)
+        print(line)
+
+print(nl_thing)
+test_df = test_df.set_index("id")
+
+print(test_df.head())
+
 
 
