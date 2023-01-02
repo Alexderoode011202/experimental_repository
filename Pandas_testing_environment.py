@@ -41,18 +41,64 @@ test_series = pd.Series(grades_list, index=names_list)
 print(test_series)
 """
 
-test_df = pd.read_csv("C:/Users/Alexd/OneDrive/Documenten/GitHub/experimental_repository/datasets/current.csv", encoding="utf-8")
 
+
+test_df = pd.read_csv("C:/Users/Alexd/OneDrive/Documenten/GitHub/experimental_repository/datasets/current.csv", encoding="utf-8")
+"""
 nl_thing: list = []
 for line in test_df["id"]:
     if "nl" in line:
         nl_thing.append(line)
         print(line)
 
-print(nl_thing)
-test_df = test_df.set_index("id")
+
+print(test_df.columns)
+smaller_df = test_df[["id", "label", "confirmed", "deaths", "recovered"]]
+
+
+# df[df['A'].str.contains("hello")]
+smaller_df = smaller_df[smaller_df["id"].str.contains("nl.")]
+print(smaller_df)
+print("\n-------------------------------------------------------------------\n")
+
+print(smaller_df.query("deaths > 1300"))
+"""
+
+
+#############
+"""
+garbage_df = pd.read_csv("test_csv.csv")
+
+print(garbage_df)
+
+garbage_df = garbage_df.set_index("passed")
+
+print(garbage_df.loc["True"])
+print(len(garbage_df.loc["True"]))
+
+print(len(garbage_df))
+
+print(garbage_df.dtypes)
+"""
+
+##############
+""" 
+
+print(pd.__version__)
+
+another_df = test_df.copy()
+print(another_df.head())
+
+print(another_df.loc[another_df["label"].isna()])
+"""
+print(test_df.columns)
+test_df = test_df[["id", "label", "confirmed" , "deaths"]]
 
 print(test_df.head())
 
+nl_subset = test_df.loc[test_df["id"].str.contains("nl.")]
+# nl_subset["confirmed"] = nl_subset["confirmed"].astype("float")
+# nl_subset["confirmed"] = nl_subset["confirmed"].astype("int")
+print(nl_subset)
 
 
