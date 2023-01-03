@@ -11,7 +11,7 @@ We can also take out sentences which don't contain any keywords
 
 import re
 import collections
-with open("nu.nl_file") as file:
+with open("../nu.nl_file") as file:
     reader = file.read()
 
     # Here we split the article up into paragraphs

@@ -98,5 +98,5 @@ def add_to_csv(dict_to_add: dict, csv_file: str, index: int = -1) -> None:
                     list_writer.writerow(line)
 
 
-path: str = "test_csv.csv"
+path: str = "../datasets/test_csv.csv"
 add_to_csv({"name": "Pootis Mann", "grade": 65, "passed": True}, path, 2)

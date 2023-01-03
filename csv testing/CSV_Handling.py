@@ -42,7 +42,7 @@ with open("C:/Users/Alexd/Downloads/Adressen_Arnhem.csv") as file:
 print(csv_copy_list)
 """
 from csv import writer
-with open("test_csv.csv", "a") as test_file:
+with open("../datasets/test_csv.csv", "a") as test_file:
     # reader = csv.reader(test_file)
     # print(tuple(reader))
     field_names: dict = {"name": "Poes", "grade": 9.9, "passed": True}
@@ -55,7 +55,7 @@ with open("test_csv.csv", "a") as test_file:
 
     test_file.close()
 
-with open("test_csv.csv", "r") as read_file:
+with open("../datasets/test_csv.csv", "r") as read_file:
     dict_obj = csv.DictReader(read_file)
 
     for line in dict_obj:

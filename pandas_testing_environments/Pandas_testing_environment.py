@@ -2,7 +2,7 @@
 import numpy as np
 import pandas as pd
 import csv
-
+pd.set_option('mode.chained_assignment', None)
 # A Series is a one-dimensional type of data to be stored
 s = pd.Series([4,6,8,10], index=["A", "B", "C", "D"])
 
@@ -43,7 +43,7 @@ print(test_series)
 
 
 
-test_df = pd.read_csv("C:/Users/Alexd/OneDrive/Documenten/GitHub/experimental_repository/datasets/current.csv", encoding="utf-8")
+test_df = pd.read_csv("/datasets/current.csv", encoding="utf-8")
 """
 nl_thing: list = []
 for line in test_df["id"]:
@@ -101,4 +101,13 @@ nl_subset = test_df.loc[test_df["id"].str.contains("nl.")]
 # nl_subset["confirmed"] = nl_subset["confirmed"].astype("int")
 print(nl_subset)
 
+nl_subset["death rate%"] = np.round(nl_subset["deaths"]/nl_subset["confirmed"], decimals=3)
 
+
+print(nl_subset.columns)
+
+print(nl_subset)
+
+nl_subset.set_index(nl_subset["label"])
+
+print(nl_subset)
