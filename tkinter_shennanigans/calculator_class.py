@@ -1,6 +1,12 @@
 from tkinter import *
-from typing import List, Union
+from typing import List, Union, Iterable, Tuple
 from functools import partial
+
+class UnsplittableException(Exception):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.msg = "This iterable is not evenly diviseable!"
+
 root = Tk()
 num_list: List[int] = []
 class Calculator:
@@ -8,6 +14,8 @@ class Calculator:
         self.num_list: List[str] = []
         self.operator_list: List[str] = []
         self.current_index : int = 0
+        self.current_num: str = ""
+
 
     def add_number(self, num: str) -> None:
         """ 
@@ -16,24 +24,14 @@ class Calculator:
         :returns: None
         """
         new_int: bool = False
+        
         if type(num) != type("test"):
             num = str(num)
 
-        # Check whether we have a new number indeed
-        try: 
-            current_num = self.operator_list[self.current_index]
-        except IndexError:
-            current_num = ""
-            new_int = True
-
-        #add to the current number
-        current_num = current_num + num
-
-        #Add it to the number list in one way or another
-        if new_int:
-            self.num_list[self.current_index] = current_num
+        if self.current_num == "" and num == "0":
+            return None
         else:
-            self.num_list.append(current_num)
+            self.current_num = self.current_num + num
 
         return None
 
@@ -57,11 +55,13 @@ class Calculator:
         :returns: None
         """
 
-        if type(num) != type("test"):
+        if type(operator) != type("test"):
             num = str(num)
 
         self.current_index += 1
         self.operator_list.append(operator)
+        self.num_list.append(self.current_num)
+        self.current_num = ""
         return None
     
     def calculate(self) -> Union[int, float]:
@@ -93,3 +93,25 @@ class Calculator:
                 leftover_op = op
 
         return result
+
+
+# Is meant to be used to the GUI
+def itersplit(iterable: Iterable, n_chunks: int) -> List[List[any]]:
+    if len(iterable)%n_chunks != 0:
+        raise UnsplittableException
+    seperated_list: list = []
+    chunk_size: int = int(len(iterable)/n_chunks)
+    print(f"CHUNK_SIZE: {chunk_size}")
+
+    for i in range(0, len(iterable), chunk_size):
+        seperated_list.append(iterable[i:i+chunk_size])
+
+    return seperated_list
+
+
+# for i in range(0, len(data), 100):
+#   chunk = data[i:i + 100]
+
+
+
+
