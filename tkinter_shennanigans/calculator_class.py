@@ -42,12 +42,11 @@ class Calculator:
         """ 
         removes a number from the current number if it has any numbers in it
         """
-        current_num = self.num_list[self.current_index]
 
-        if current_num == "":
+        if self.current_num == "":
             return None
         else:
-            current_num = current_num[:-1]
+            self.current_num = self.current_num[:-1]
 
         return None
 
@@ -138,7 +137,7 @@ class Calculator:
         self.current_num: str = ""
         self.result: Union[int, float] = 0
 
-# Is meant to be used to the GUI
+# Is meant to be used in the GUI
 def itersplit(iterable: Iterable, n_chunks: int) -> List[List[any]]:
     if len(iterable)%n_chunks != 0:
         raise UnsplittableException

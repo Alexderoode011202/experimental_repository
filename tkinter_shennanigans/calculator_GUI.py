@@ -3,8 +3,11 @@ from calculator_class import itersplit
 from tkinter import *
 from functools import partial
 from typing import List, Dict, Union
+from PIL import Image
 
 root = Tk()
+root.title("Calculator app")
+root.iconbitmap(default="tkinter_shennanigans/scout (1).ico")
 calc = Calculator()
 
 operators: List[str] = ['+', '-', '*', "/"]
@@ -34,7 +37,7 @@ def calculate_results() -> None:
     screen.delete(0, "end")
     screen.insert(0, f"{answer}")
 
-filler_2 = Button(root, height=3, width=10, text="=", command=calculate_results)
+filler_2 = Button(root, height=3, width=10, text="=", command= lambda x="end": [screen.delete(0, x), screen.insert(0, str(calc.calculate()))])
     
 # some_list = [filler_1, zero, filler_2]
 number_button_list.extend([filler_1, zero, filler_2])
@@ -55,7 +58,7 @@ def oper_caller(operator: str):
 print("operator creation")
 for num, op in enumerate(operators):
     print(op)
-    operators_button_list.append(Button(root, text=op, width = 10, height=3, command= partial(oper_caller, op)))
+    operators_button_list.append(Button(root, text=op, width = 10, height=3, command= lambda oper = op, x="end": [calc.add_operator(oper), screen.delete(0, x)]))
 
 # Grid the operators
 for num ,op in enumerate(operators_button_list):
