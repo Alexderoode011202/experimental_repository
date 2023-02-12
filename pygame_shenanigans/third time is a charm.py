@@ -1,5 +1,6 @@
 import pygame
 from sys import exit
+from failure_screen import failure_screen
 
 pygame.init()
 pygame.display.set_caption("Call of Duty 2023 Premium Edition")
@@ -10,13 +11,23 @@ screen = pygame.display.set_mode((WIDTH, LENGTH))
 screen.fill(color=(0,0,255))
 clock = pygame.time.Clock()
 boring_font = pygame.font.Font("pygame_shenanigans/pixel_font.ttf", 20)
+smaller_font = pygame.font.Font("pygame_shenanigans/pixel_font.ttf", 10)
+test_surface = pygame.image.load("C:/Users/Alexd/OneDrive/Documenten/GitHub/experimental_repository/pygame_shenanigans/ground.png").convert()
+test_rect = test_surface.get_rect(midbottom = (WIDTH*0.5, LENGTH))
 
-test_surface = pygame.image.load("C:/Users/Alexd/OneDrive/Documenten/GitHub/experimental_repository/pygame_shenanigans/ground.png")
-air_surface = pygame.image.load("C:/Users/Alexd/OneDrive/Documenten/GitHub/experimental_repository/pygame_shenanigans/Air.jpg")
+air_surface = pygame.image.load("C:/Users/Alexd/OneDrive/Documenten/GitHub/experimental_repository/pygame_shenanigans/Air.jpg").convert()
+air_rect = air_surface.get_rect(midbottom=(WIDTH*0.5,LENGTH - test_surface.get_height()))
+
 text_surface = boring_font.render("What am I doing?", True, "black")
-pz3_surface = pygame.image.load("pygame_shenanigans/pz_3_without_background.png")
-pz3_x: int = 429
-pz3_y: int = 249
+text_rect = text_surface.get_rect(midtop=(WIDTH*0.5, 0))
+
+smaller_text = smaller_font.render("I have no idea!!", False, (0,0,0))
+smaller_text_rect = smaller_text.get_rect(midtop=(WIDTH * 0.5, text_rect.bottom))
+
+
+pz3_surface = pygame.image.load("pygame_shenanigans/pz_3_without_background.png").convert_alpha()
+pz3_rect = pz3_surface.get_rect(bottomright=(WIDTH*0.7, LENGTH))
+
 running: bool = True
 while running:
     for event in pygame.event.get():
@@ -24,21 +35,26 @@ while running:
         if event.type == pygame.QUIT:
             running = False
             pygame.quit()
+            pygame.init()
+            failure_screen()
+            
             exit()
 
     # Background
-    screen.blit(test_surface, (0, LENGTH-test_surface.get_height()))
-    screen.blit(air_surface, (0, LENGTH-test_surface.get_height()-air_surface.get_height()))
+    screen.blit(test_surface, test_rect)
+    screen.blit(air_surface, air_rect)
     
     # text
-    screen.blit(source=text_surface, dest=(WIDTH*0.5, LENGTH*0.5))
+    screen.blit(text_surface, text_rect)
+    screen.blit(smaller_text, smaller_text_rect)
 
     # tank
-    pz3_x -=2
-    if pz3_x <= 0:
-        pz3_x = WIDTH
+    pz3_rect.left -=10
+    if pz3_rect.right <= 0:
+        pz3_rect.left = WIDTH
 
-    screen.blit(pz3_surface, (pz3_x, pz3_y))
+
+    screen.blit(pz3_surface, pz3_rect)
 
 
     pygame.display.update()
