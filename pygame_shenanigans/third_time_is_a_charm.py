@@ -12,10 +12,10 @@ screen.fill(color=(0,0,255))
 clock = pygame.time.Clock()
 boring_font = pygame.font.Font("pygame_shenanigans/pixel_font.ttf", 20)
 smaller_font = pygame.font.Font("pygame_shenanigans/pixel_font.ttf", 10)
-test_surface = pygame.image.load("C:/Users/Alexd/OneDrive/Documenten/GitHub/experimental_repository/pygame_shenanigans/ground.png").convert()
+test_surface = pygame.image.load("pygame_shenanigans/ground.png").convert()
 test_rect = test_surface.get_rect(midbottom = (WIDTH*0.5, LENGTH))
 
-air_surface = pygame.image.load("C:/Users/Alexd/OneDrive/Documenten/GitHub/experimental_repository/pygame_shenanigans/Air.jpg").convert()
+air_surface = pygame.image.load("pygame_shenanigans/Air.jpg").convert()
 air_rect = air_surface.get_rect(midbottom=(WIDTH*0.5,LENGTH - test_surface.get_height()))
 
 text_surface = boring_font.render("What am I doing?", True, "black")
@@ -27,6 +27,8 @@ smaller_text_rect = smaller_text.get_rect(midtop=(WIDTH * 0.5, text_rect.bottom)
 
 pz3_surface = pygame.image.load("pygame_shenanigans/pz_3_without_background.png").convert_alpha()
 pz3_rect = pz3_surface.get_rect(bottomright=(WIDTH*0.7, LENGTH))
+
+# object for directions
 
 running: bool = True
 while running:
