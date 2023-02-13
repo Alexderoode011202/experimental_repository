@@ -41,10 +41,10 @@ while running:
                 p1_rect.top +=30
     print(f"{ball_rect.top} and {ball_rect.bottom}")
     # colision rules:
-    if ball_rect.top <= 0:
+    if ball_rect.top < 0:
         print("TOP REACHED")
         dt.invert_vertical()
-    elif ball_rect.bottom >= LENGTH:
+    elif ball_rect.bottom > LENGTH:
         print("BOTTOM REACHED")
         dt.invert_vertical()
 
@@ -61,4 +61,4 @@ while running:
     screen.blit(p2_bat, p2_rect)
     screen.blit(ball, ball_rect)
     pygame.display.update()
-    clock.tick(60)
+    clock.tick(30)
