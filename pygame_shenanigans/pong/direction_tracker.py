@@ -6,7 +6,8 @@ from typing import Tuple
 class DirectionTracker():
     def __init__(self):
         # self.current = random.choice(range(3, 360))
-        self.current = 45
+        self.current = random.choice(range(30, 150))
+        self.current = 135
 
     def get_direction(self) -> int:
         return self.current
