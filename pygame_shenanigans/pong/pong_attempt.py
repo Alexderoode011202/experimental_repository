@@ -11,7 +11,8 @@ LENGTH: int = 500
 screen = pygame.display.set_mode((WIDTH, LENGTH))
 clock = pygame.time.Clock()
 
-
+# standard font
+Standard_Font = pygame.font.Font("pygame_shenanigans/pixel_font2.ttf", 45)
 
 # Player 1
 p1_bat: Surface = pygame.surface.Surface((20, 100))
@@ -29,6 +30,27 @@ ball_rect = ball.get_rect(center=(WIDTH*0.5, LENGTH*0.5))
 dt = DirectionTracker()
 speed = 1.8
 
+# score
+score: int = 0
+
+
+
+def show_score(player_score: int) -> None:
+    global screen
+    score_surf: Surface  = Standard_Font.render(f"Score: {player_score}", False, (255,0,0))
+    score_rect = score_surf.get_rect(midtop = (WIDTH*0.25,0))
+    screen.blit(score_surf, score_rect)
+    return None
+    
+# time
+def show_time() -> None:
+    global screen
+    global clock
+    time_surf: Surface = Standard_Font.render(f"time: {round(pygame.time.get_ticks()/1000)}", True, (255,0,0))
+    time_rect = time_surf.get_rect(midtop = (WIDTH*0.75,0))
+    screen.blit(time_surf, time_rect)
+
+
 running: bool = True
 while running:
     keys_pressed = pygame.key.get_pressed()
@@ -43,31 +65,21 @@ while running:
             running = False
         
         # player actions
-        """
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_w:
-                p1_rect.top -=30
-                
-            if event.key == pygame.K_s:
-                p1_rect.top +=30
-                """
+        
     print(f"{ball_rect.top} and {ball_rect.bottom}")
     print(dt.get_direction())
-    # collision rules:
+
+    # collision rule top:
     if ball_rect.top < 0:
         print("TOP REACHED")
         ball_rect.centery += 5
         dt.invert_vertical()
 
+    # colission rule bottom:
     elif ball_rect.bottom > LENGTH:
         # ball_rect.bottom - 5
         print("BOTTOM REACHED")
         dt.invert_vertical()
-        
-
-    if ball_rect.right == WIDTH:
-        # ball_rect.right = -5
-        dt.invert_horizontal()
 
     # --stops game--
     if ball_rect.centerx <= 0:
@@ -75,12 +87,12 @@ while running:
         pygame.init()
         failure_screen()
         
-    
     # Collision P1
     if ball_rect.colliderect(p1_rect):
         ball_rect.left + 5
         speed = speed * 1.1
         dt.invert_horizontal()
+        score+=1
 
     # Collision P2
     if p2_rect.colliderect(ball_rect):
@@ -106,10 +118,25 @@ while running:
     ball_rect.centery = ball_rect.centery + dt.get_grid_movement()[1] * speed
 
 
+
+    # background
     screen.fill((0,0,0))
+
+    # p1 bat
     screen.blit(p1_bat, p1_rect)
+
+    # Incredibly complex AI
     p2_rect.centery = ball_rect.centery
+
+    # P2 bat
     screen.blit(p2_bat, p2_rect)
+
+    #score + time
+    show_score(player_score=score)
+    show_time()
+
+    # Ball
     screen.blit(ball, ball_rect)
+
     pygame.display.update()
     clock.tick(30)
