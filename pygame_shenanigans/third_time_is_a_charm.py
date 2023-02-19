@@ -1,6 +1,6 @@
 import pygame
 from sys import exit
-from failure_screen import failure_screen
+from pygame_shenanigans.pong.failure_screen import failure_screen
 
 pygame.init()
 pygame.display.set_caption("Call of Duty 2023 Premium Edition")
@@ -10,12 +10,12 @@ LENGTH: int = 400
 screen = pygame.display.set_mode((WIDTH, LENGTH))
 screen.fill(color=(0,0,255))
 clock = pygame.time.Clock()
-boring_font = pygame.font.Font("pygame_shenanigans/pixel_font.ttf", 20)
-smaller_font = pygame.font.Font("pygame_shenanigans/pixel_font.ttf", 10)
-test_surface = pygame.image.load("pygame_shenanigans/ground.png").convert()
+boring_font = pygame.font.Font("C:/Users/Alexd/OneDrive/Documenten/GitHub/experimental_repository/pygame_shenanigans/pixel_font.ttf", 20)
+smaller_font = pygame.font.Font("C:/Users/Alexd/OneDrive/Documenten/GitHub/experimental_repository/pygame_shenanigans/pixel_font.ttf", 10)
+test_surface = pygame.image.load("C:/Users/Alexd/OneDrive/Documenten/GitHub/experimental_repository/pygame_shenanigans/ground.png").convert()
 test_rect = test_surface.get_rect(midbottom = (WIDTH*0.5, LENGTH))
 
-air_surface = pygame.image.load("pygame_shenanigans/Air.jpg").convert()
+air_surface = pygame.image.load("C:/Users/Alexd/OneDrive/Documenten/GitHub/experimental_repository/pygame_shenanigans/Air.jpg").convert()
 air_rect = air_surface.get_rect(midbottom=(WIDTH*0.5,LENGTH - test_surface.get_height()))
 
 text_surface = boring_font.render("What am I doing?", True, "black")
@@ -25,7 +25,7 @@ smaller_text = smaller_font.render("I have no idea!!", False, (0,0,0))
 smaller_text_rect = smaller_text.get_rect(midtop=(WIDTH * 0.5, text_rect.bottom))
 
 
-pz3_surface = pygame.image.load("pygame_shenanigans/pz_3_without_background.png").convert_alpha()
+pz3_surface = pygame.image.load("C:/Users/Alexd/OneDrive/Documenten/GitHub/experimental_repository/pygame_shenanigans/pz_3_without_background.png").convert_alpha()
 pz3_rect = pz3_surface.get_rect(bottomright=(WIDTH*0.7, LENGTH))
 
 # object for directions
@@ -55,7 +55,8 @@ while running:
     if pz3_rect.right <= 0:
         pz3_rect.left = WIDTH
 
-
+    pz3_surface = pygame.transform.rotate(pz3_surface, 45)
+    pz3_rect = pz3_surface.get_rect(bottomleft = (WIDTH, LENGTH))
     screen.blit(pz3_surface, pz3_rect)
 
 

@@ -4,7 +4,7 @@ from sys import exit
 from typing import Tuple
 pygame.init()
 pygame.display.set_caption("Pootis Punk 2077")
-pygame.display.set_icon(pygame.image.load("tkinter_shennanigans/scout (1).ico"))
+# pygame.display.set_icon(pygame.image.load("experimental_repository/pygaming_shenanigans/tkinter_shennanigans/scout (1).ico"))
 width, heigth = (800, 400)
 screen = pygame.display.set_mode((width, heigth))
 clock = pygame.time.Clock()
