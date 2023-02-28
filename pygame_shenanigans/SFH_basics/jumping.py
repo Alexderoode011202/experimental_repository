@@ -15,6 +15,7 @@ class Soldier:
     def __init__(self, path: str, HP: int, damage: int, speed: float, magazine_size: int, reload_time: float, bullet_speed: float) -> None:
         self.surf: Surface = pygame.image.load(path)
         self.damage: int = damage
+        self.hp: int = HP
         self.speed: float = speed
         self.reload_time: float = reload_time
         self.magazine_size: int = magazine_size

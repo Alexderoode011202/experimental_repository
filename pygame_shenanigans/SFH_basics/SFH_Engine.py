@@ -13,7 +13,12 @@ pygame.mouse.set_cursor
 clock = pygame.time.Clock()
 
 # (partial) map initialization
+left_rect: Surface = pygame.Surface((500, 50))
+left_rect.fill((255,255,255))
+left_r_r: Rect = left_rect.get_rect(midleft = (0,HEIGTH*0.5))
 
+# hiding mouse
+pygame.mouse.set_visible(False)
 
 # Mouse adjustment
 cursor_surf: Surface = pygame.image.load("pygame_shenanigans/diverse/crosshair.png")

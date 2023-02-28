@@ -66,8 +66,8 @@ while running:
         
         # player actions
         
-    print(f"{ball_rect.top} and {ball_rect.bottom}")
-    print(dt.get_direction())
+    """print(f"{ball_rect.top} and {ball_rect.bottom}")
+    print(dt.get_direction())"""
 
     # collision rule top:
     if ball_rect.top < 0:
