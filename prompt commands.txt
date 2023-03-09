@@ -1,0 +1,4 @@
+important commands:
+-py pip install <module_name> 
+-pip install --update <module_name>
+-cd <path>
